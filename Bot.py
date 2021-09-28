@@ -2,7 +2,7 @@ import Logo_Variable
 import Working
 
 Ans = 0
-count = 1  # for Sequence count
+count = 1  # for Sequence
 Logo_Variable.design_dee()
 
 while True:
@@ -16,9 +16,15 @@ while True:
     # for main equation
     final_equation = Working.equation()
 
-    # for BODMAS
+    if '' in final_equation:
+        final_equation.remove('')
+    elif ' ' in final_equation:
+        final_equation.remove(' ')
+
+    # for BODMAS Operation
     bodmas_list = ['0', '0', '0']
     break_out_flag = False
+
     for _ in Working.operator():
         # for 0 divisible error
         if break_out_flag:
