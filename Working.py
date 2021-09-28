@@ -88,4 +88,3 @@ def clear_single(index, ans):
     Bot.final_equation[index - 1] = " "
     Bot.final_equation[index] = ans
     Bot.final_equation.remove(" ")
-
