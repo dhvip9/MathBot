@@ -40,7 +40,7 @@ while True:
         # -----------------------------
         # For operation in use
         for x, i in zip(Sort_operation[0], Sort_operation[1]):    # [0] = index Operation , [1] = sort_operater
-            # Equal to[!]
+            # Equal to[=]
             if "=" not in Sort_operation[1]:
                 operation_in_use = Sort_operation[1][-1]
 
