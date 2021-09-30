@@ -2,6 +2,10 @@ import Logo_Variable
 import Working
 
 Ans = 0
+Second_value = 0
+digit_2 = 0
+operation_in_use = ""
+
 count = 1  # for Sequence
 Logo_Variable.design_dee()
 
@@ -13,7 +17,7 @@ while True:
         print("| ThankYou! For Visiting [ DEE Maths ] |")
         break
     # -----------------------------
-    # for main equation
+    # For main equation
     final_equation = Working.equation()
 
     if '' in final_equation:
@@ -21,22 +25,31 @@ while True:
     elif ' ' in final_equation:
         final_equation.remove(' ')
 
-    # for BODMAS Operation
+    # For BODMAS Operation
     bodmas_list = ['0', '0', '0']
     break_out_flag = False
 
     for _ in Working.operator():
-        # for 0 divisible error
+        # For 0 divisible error
         if break_out_flag:
             break
 
-        # for sorting operation
+        # For sorting operation
         Sort_operation = Working.sort_operation()
 
         # -----------------------------
-        # for multi operation in use
-        for x, i in zip(Sort_operation[0], Sort_operation[1]):
-            if i in Logo_Variable.opt:
+        # For operation in use
+        for x, i in zip(Sort_operation[0], Sort_operation[1]):    # [0] = index Operation , [1] = sort_operater
+            # Equal to[!]
+            if "=" not in Sort_operation[1]:
+                operation_in_use = Sort_operation[1][-1]
+
+            if i == "=":
+                Working.equal_operator(operation_in_use)
+                break
+
+            # For Short list
+            elif i in Logo_Variable.opt:
                 bodmas_list[0] = final_equation[x - 1]
                 bodmas_list[1] = final_equation[x]
                 bodmas_list[2] = final_equation[1 + x]
@@ -58,6 +71,7 @@ while True:
 
             # Division[/]
             elif i == "/":
+                Second_value = Working.last_value(operation_in_use)
                 if bodmas_list[2] == "0" or bodmas_list[2] == "0 " or bodmas_list[2] == " 0" or bodmas_list[2] == " 0 ":
                     Ans = 0
                     print("| WARNING! :- Zero [0] Cannot Divisible Any Number |")
@@ -71,13 +85,15 @@ while True:
 
             # multiplication[*]
             elif i == "*" or i == "x":
+                Second_value = Working.last_value(operation_in_use)
                 Ans = float(bodmas_list[0]) * float(bodmas_list[2])
                 Working.clear_value(x, Ans)
                 bodmas_list = ['0', '0', '0']
                 break
 
-            # power or exponent[^]
+            # Power or Exponent[^]
             elif i == "^" or i == "**":
+                Second_value = Working.last_value(operation_in_use)
                 Ans = float(bodmas_list[0]) ** float(bodmas_list[2])
                 Working.clear_value(x, Ans)
                 bodmas_list = ['0', '0', '0']
@@ -85,6 +101,7 @@ while True:
 
             # Addition[+]
             elif i == "+":
+                Second_value = Working.last_value(operation_in_use)
                 Ans = float(bodmas_list[0]) + float(bodmas_list[2])
                 Working.clear_value(x, Ans)
                 bodmas_list = ['0', '0', '0']
@@ -92,6 +109,7 @@ while True:
 
             # Subtraction[-]
             elif i == "-":
+                Second_value = Working.last_value(operation_in_use)
                 Ans = float(bodmas_list[0]) - float(bodmas_list[2])
                 Working.clear_value(x, Ans)
                 bodmas_list = ['0', '0', '0']

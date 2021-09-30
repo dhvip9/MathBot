@@ -48,11 +48,11 @@ def sort_operation():
     for a in Bot.final_equation:
         if a in Logo_Variable.opt_1:
             raw_sort_operater.append(a)
-        elif a == "/":
+        if a == "/":
             raw_sort_operater.append("%")
-        elif a == "x":
+        if a == "x":
             raw_sort_operater.append("*")
-        elif a == "^":
+        if a == "^":
             raw_sort_operater.append("**")
 
     # for index of operater
@@ -61,6 +61,10 @@ def sort_operation():
         if a in Logo_Variable.opt_1:
             index_operater.append(Bot.final_equation.index(a))
         elif a == "/":
+            index_operater.append(Bot.final_equation.index(a))
+        elif a == "^":
+            index_operater.append(Bot.final_equation.index(a))
+        elif a == "x":
             index_operater.append(Bot.final_equation.index(a))
     index_operater = [x for _, x in sorted(zip(raw_sort_operater, index_operater))]
     raw_sort_operater.sort()
@@ -72,7 +76,8 @@ def sort_operation():
             sort_operater.append(j)
         if j == "%":
             sort_operater.append("/")
-
+        if j == "**":
+            sort_operater.append("^")
     return index_operater, sort_operater, raw_sort_operater
 
 
@@ -88,3 +93,31 @@ def clear_single(index, ans):
     Bot.final_equation[index - 1] = " "
     Bot.final_equation[index] = ans
     Bot.final_equation.remove(" ")
+
+
+def last_value(last_operator):
+    if last_operator == "/":
+        Bot.digit_2 = float(Bot.bodmas_list[2])
+    if last_operator == "*" or last_operator == "x":
+        Bot.digit_2 = float(Bot.bodmas_list[2])
+    if last_operator == "^" or last_operator == "**":
+        Bot.digit_2 = float(Bot.bodmas_list[2])
+    if last_operator == "+":
+        Bot.digit_2 = float(Bot.bodmas_list[2])
+    if last_operator == "-":
+        Bot.digit_2 = float(Bot.bodmas_list[2])
+    return Bot.digit_2
+
+
+def equal_operator(use_operator):
+    if use_operator == "/":
+        Bot.Ans = Bot.Ans / Bot.Second_value
+    elif use_operator == "*" or use_operator == "x":
+        Bot.Ans = Bot.Ans * Bot.Second_value
+    elif use_operator == "^" or use_operator == "**":
+        Bot.Ans = Bot.Ans ** Bot.Second_value
+    elif use_operator == "+":
+        Bot.Ans = Bot.Ans + Bot.Second_value
+    elif use_operator == "-":
+        Bot.Ans = Bot.Ans - Bot.Second_value
+    return Bot.Ans
